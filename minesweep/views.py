@@ -22,7 +22,7 @@ class MineSweeperView(object):
 
             uid = str(uuid.uuid4())
             self.request.session['player_id'] = uid
-            MineSweeperView.users[uid] = str(board)
+            MineSweeperView.users[uid] = board.to_list()
             print "New player_id:", self.request.session
             print "Minefield    :", MineSweeperView.users[uid]
         else:

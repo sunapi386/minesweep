@@ -41,6 +41,14 @@ class Board(tuple):
                 for (col_id, _) in enumerate(row)))
         return board_string
 
+    def to_list(self):
+        lst = []
+        for (row_id, row) in enumerate(self):
+            lst.append(
+                [self.mine_repr(row_id, col_id) for (col_id, col) in enumerate(row)]
+            )
+        return lst
+
     def show(self, row_id, col_id):
         cell = self[row_id][col_id]
         if not cell.is_visible:
