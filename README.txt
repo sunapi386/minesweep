@@ -1,8 +1,15 @@
 Minesweep README
 ================
+This app is hosted on heroku. http://secret-gorge-5061.herokuapp.com/
+
 Run via
 
     $VENV/bin/pserve  development.ini --reload
+
+or using
+
+    ./run
+
 
 Architecture
 ------------
@@ -11,7 +18,7 @@ This is the sequence of steps how I envision the minesweeper to work.
 2/ Server:
     - Loads a new map for you, if no game found for you.
     - Otherwise, reloads your last game.
-    - Ideally can handle resolve multiple clients.
+    - Can handle multiple clients.
 3/ Client clicks on a grid, POST to server.
 4/ Server does minesweeper logic, replies with:
     - win
