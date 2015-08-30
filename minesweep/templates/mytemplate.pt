@@ -38,6 +38,9 @@
                 <div id="start_button" onclick="new_game(this)" num_mines="9">
                     9 Mines
                 </div>
+                <div id="start_button" onclick="new_game(this)" num_mines="12">
+                    12 Mines
+                </div>
             </div>
 
             <table align="center" class="field" id="minefield">

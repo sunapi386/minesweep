@@ -123,7 +123,8 @@ class Board(tuple):
 
     @property
     def is_solved(self):
-        return all((cell.is_visible or cell.is_flagged) for row in self for cell in row)
+        # every cell is either revealed or a mine
+        return all((cell.is_visible or cell.is_mine) for row in self for cell in row)
 
 def create_board(size, mines):
     board = Board(tuple([tuple([Cell(False) for i in range(size)])
