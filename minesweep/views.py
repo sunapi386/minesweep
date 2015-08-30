@@ -47,5 +47,19 @@ class MineSweeperView(object):
     @view_config(route_name='play_json', renderer='json')
     def play(self):
         print "View.play", self
+        row = self.request.json.get("row")
+        col = self.request.json.get("col")
+        played_minefield = []
+        return {'played_minefield':played_minefield,
+                'row':row,
+                'col':col}
+
+    @view_config(route_name='flag_json', renderer='json')
+    def flag(self):
+        print "View.flag", self
+        row = self.request.json.get("row")
+        col = self.request.json.get("col")
         updated_minefield = []
-        return {'updated_minefield':updated_minefield}
+        return {'updated_minefield':updated_minefield,
+                'row':row,
+                'col':col}

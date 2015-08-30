@@ -13,5 +13,6 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('newgame_json', '/api/newgame.json')
     config.add_route('play_json', '/api/play.json')
+    config.add_route('flag_json', '/api/flag.json')
     config.scan()
     return config.make_wsgi_app()

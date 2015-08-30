@@ -150,6 +150,7 @@ def main():
     MINES = 9
     board = create_board(SIZE, MINES)
     print(board)
+
     # while board.is_playing and not board.is_solved:
     #     (row_id, col_id, is_flag) = get_move(board)
     #     if not is_flag:

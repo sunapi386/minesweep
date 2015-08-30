@@ -26,8 +26,10 @@
   <body>
 
     <div class="minesweep-main">
-    <h1 align="center">Hello Techies ${len('player')}!</h1>
-    <button type="button" onclick="new_game()">New MineSweeper Game</button>
+    <h1 align="center">Welcome to Minesweeper!</h1>
+    <div id="start_button" onclick="new_game()">
+      New MineSweeper Game
+    </div>
 
     <table align="center" class="field" id="minefield">
     </table>
