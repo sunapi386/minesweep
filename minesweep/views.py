@@ -2,6 +2,7 @@
 from pyramid.view import view_config, view_defaults
 import uuid
 import minesweep.sweep as swp
+import json
 
 @view_defaults(renderer='templates/mytemplate.pt')
 class MineSweeperView(object):
@@ -45,7 +46,13 @@ class MineSweeperView(object):
     @view_config(route_name='home', request_method='GET')
     def home(self):
         print "View.home", self
-        return {}
+
+        uid = self.request.session['player_id']
+        print "User", uid
+        board = MineSweeperView.users[uid]
+        print "Loaded %s board %s" % (uid, board)
+
+        return {'minefield':json.dumps(board.to_list())}
 
     @view_config(route_name='newgame_json', renderer='json')
     def newgame(self):
