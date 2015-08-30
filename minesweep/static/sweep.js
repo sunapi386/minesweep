@@ -4,17 +4,33 @@ $(document).ready(function(){
     }
 });
 
+function cell_class(ch) {
+    var class_str = "cell";
+    if(ch == 'M') {
+        class_str += " mine";
+    } else if(ch == 'F') {
+        class_str += " flagged";
+    } else if(!isNaN(parseInt(ch))) {
+        class_str += " numbered";
+    } else if(ch == ' ') {
+        class_str += " unexplored";
+    }
+    return class_str;
+};
+
 function redraw(minefield, board_list) {
     minefield.empty();
     for (var row = 0; row < board_list.length; row++) {
         minefield.append("<tr>");
         var cols = "";
         for(var col = 0; col < board_list[row].length; col++) {
-            cols += "<td class=\"cell\" \onclick=\"play_cell(this)\" " +
-                    "row=\"" + row + "\" " +
-                    "col=\"" + col + "\" " +
-                    "oncontextmenu=\"flag_cell(this)\">" +
-                    board_list[row][col] +
+            var ch = (board_list[row][col]);
+            cols += "<td class=\"" + cell_class(ch) + "\"" +
+                        "onclick=\"play_cell(this)\" " +
+                        "row=\"" + row + "\" " +
+                        "col=\"" + col + "\" " +
+                        "oncontextmenu=\"flag_cell(this)\">" +
+                        ch +
                     "</td>";
         };
         minefield.append('<tr>' + cols + '</tr>');
@@ -24,21 +40,21 @@ function redraw(minefield, board_list) {
 function newgame_handler(data) {
     console.log("newgame_handler:", data);
     var minefield = $(".field");
-    var board_list = data["new_minefield"];
+    var board_list = data["minefield"];
     redraw(minefield, board_list);
 }
 
 function updategame_handler(data) {
     console.log("updategame_handler:", data);
     var minefield = $(".field");
-    var board_list = data["played_minefield"];
+    var board_list = data["minefield"];
     redraw(minefield, board_list);
 }
 
 function flaggame_handler(data) {
     console.log("flaggame_handler:", data);
     var minefield = $(".field");
-    var board_list = data["played_minefield"];
+    var board_list = data["minefield"];
     redraw(minefield, board_list);
 }
 
@@ -60,7 +76,7 @@ function play_cell(attrs) {
 function flag_cell(attrs) {
     var row = attrs.getAttribute("row");
     var col = attrs.getAttribute("col");
-    var JSONObj = {'row':row, 'col':col};
+    var JSONObj = {'row':row, 'col':col, 'flag':1};
     var targeturl = '/api/flag.json'
     ajax_post(JSONObj, targeturl, flaggame_handler);
 }

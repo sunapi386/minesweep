@@ -56,7 +56,7 @@ class MineSweeperView(object):
         mines = 10
         MineSweeperView.users[uid] = swp.create_board(size, mines)
         board = MineSweeperView.users[uid]
-        return {'new_minefield':board.to_list()}
+        return {'minefield':board.to_list()}
 
     @view_config(route_name='play_json', renderer='json')
     def play(self):
@@ -74,7 +74,7 @@ class MineSweeperView(object):
 
         move = col + row + ("f" if flag else "")
         swp.make_move(board, move)
-        return {'played_minefield':board.to_list(),
+        return {'minefield':board.to_list(),
                 'row':row,
                 'col':col}
 
@@ -83,6 +83,18 @@ class MineSweeperView(object):
         print "View.flag", self
         row = self.request.json.get("row")
         col = self.request.json.get("col")
-        return {'updated_minefield':[],
+        flag = "flag" in self.request.json
+        print "User requests %s %s %s" % (row, col, flag)
+
+        uid = self.request.session['player_id']
+        print "User", uid
+        board = MineSweeperView.users[uid]
+        print "Loaded %s board %s" % (uid, board)
+
+        move = col + row + ("f" if flag else "")
+        swp.make_move(board, move)
+
+
+        return {'minefield':board.to_list(),
                 'row':row,
                 'col':col}
