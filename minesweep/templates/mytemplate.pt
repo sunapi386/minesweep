@@ -34,7 +34,7 @@
     </form>
  -->
     <div id="start_button" onclick="new_game()">
-      New MineSweeper Game
+      New Minesweeper Game
     </div>
 
     <table align="center" class="field" id="minefield">

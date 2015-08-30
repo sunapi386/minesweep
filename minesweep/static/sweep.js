@@ -12,7 +12,7 @@ function cell_class(ch) {
         class_str += " flagged";
     } else if(!isNaN(parseInt(ch))) {
         class_str += " numbered";
-    } else if(ch == ' ') {
+    } else if(ch == 'X') {
         class_str += " unexplored";
     }
     return class_str;

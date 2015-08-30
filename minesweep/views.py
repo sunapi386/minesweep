@@ -18,7 +18,7 @@ class MineSweeperView(object):
         if 'player_id' not in self.request.session:
             # size, and mines can be read dynamically
             size = 10
-            mines = 10
+            mines = 3
             board = swp.create_board(size, mines)
             print(board)
             uid = str(uuid.uuid4())
@@ -32,7 +32,7 @@ class MineSweeperView(object):
                 self.request.session['player_id']
             uid = self.request.session['player_id']
             size = 10
-            mines = 10
+            mines = 3
             board = swp.create_board(size, mines)
             print(board)
             MineSweeperView.users[uid] = board
@@ -60,7 +60,7 @@ class MineSweeperView(object):
         print "View.newgame", self
         uid = self.request.session['player_id']
         size = 10
-        mines = 10
+        mines = 3
         MineSweeperView.users[uid] = swp.create_board(size, mines)
         board = MineSweeperView.users[uid]
         return {'minefield':board.to_list()}
