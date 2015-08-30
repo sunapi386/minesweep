@@ -42,6 +42,7 @@ function newgame_handler(data) {
     var minefield = $(".field");
     var board_list = data["minefield"];
     redraw(minefield, board_list);
+    document.getElementById("popup").remove();
 }
 
 function updategame_handler(data) {
@@ -91,5 +92,13 @@ function ajax_post(JSONObj, targeturl, callbackfn) {
     }).done(function(data){
         // console.log("ajax_post done", data);
         callbackfn(data);
+        if(data["result"] == "win") {
+            console.log("win!");
+            document.body.innerHTML += "<div id=\"popup\">You Win!</div>";
+        }
+        if(data["result"] == "lost") {
+            console.log("game over");
+            document.body.innerHTML += "<div id=\"popup\">Game Over!</div>";
+    }
     });
 }

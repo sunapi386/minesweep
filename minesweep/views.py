@@ -83,7 +83,8 @@ class MineSweeperView(object):
         swp.make_move(board, move)
         return {'minefield':board.to_list(),
                 'row':row,
-                'col':col}
+                'col':col,
+                'result':swp.result(board)}
 
     @view_config(route_name='flag_json', renderer='json')
     def flag(self):
@@ -104,4 +105,5 @@ class MineSweeperView(object):
 
         return {'minefield':board.to_list(),
                 'row':row,
-                'col':col}
+                'col':col,
+                'result':swp.result(board)}

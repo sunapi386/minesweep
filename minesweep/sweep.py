@@ -182,6 +182,14 @@ def is_valid(move_input, board):
 
     return True
 
+def result(board):
+    if board.is_playing and not board.is_solved:
+        return "continue"
+    elif board.is_solved:
+        return "win"
+    else:
+        return "lost"
+
 def main():
     SIZE = 10
     MINES = 9
