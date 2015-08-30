@@ -84,7 +84,7 @@ class Board(tuple):
             elif self.count_surrounding(row_id, col_id) == 0:
                 for (surr_row, surr_col) in self.get_neighbours(row_id, col_id):
                     if self.is_in_range(surr_row, surr_col):
-                        self.show(surr_row, surr_col) 
+                        self.show(surr_row, surr_col)
 
     def flag(self, row_id, col_id):
         cell = self[row_id][col_id]

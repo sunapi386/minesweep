@@ -212,12 +212,18 @@ td.cell.unexplored {
   color: white;
 }
 
+#buttons {
+  text-align: center;
+  padding: 10px;
+}
+
 #start_button {
   border: 1px solid white;
   padding: 10px;
   text-align: center;
   cursor: pointer;
   font-size: 1.3em;
+  display: inline;
 }
 
 #start_button:hover {

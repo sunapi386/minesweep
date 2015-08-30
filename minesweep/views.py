@@ -46,7 +46,6 @@ class MineSweeperView(object):
     @view_config(route_name='home', request_method='GET')
     def home(self):
         print "View.home", self
-
         uid = self.request.session['player_id']
         print "User", uid
         board = MineSweeperView.users[uid]
@@ -60,7 +59,7 @@ class MineSweeperView(object):
         print "View.newgame", self
         uid = self.request.session['player_id']
         size = 10
-        mines = 3
+        mines = int(self.request.json.get("num_mines"))
         MineSweeperView.users[uid] = swp.create_board(size, mines)
         board = MineSweeperView.users[uid]
         return {'minefield':board.to_list()}

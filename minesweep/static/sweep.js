@@ -42,7 +42,10 @@ function newgame_handler(data) {
     var minefield = $(".field");
     var board_list = data["minefield"];
     redraw(minefield, board_list);
-    document.getElementById("popup").remove();
+    console.log("NULL?" + document.getElementById("popup") == null);
+    if(document.getElementById("popup") != null) {
+        document.getElementById("popup").remove();
+    }
 }
 
 function updategame_handler(data) {
@@ -59,24 +62,24 @@ function flaggame_handler(data) {
     redraw(minefield, board_list);
 }
 
-function new_game() {
-    // TODO: dynamically have user choose difficulty?
-    var JSONObj = {'board_size' : 10, 'num_mines' : 10};
+function new_game(data) {
+    var num_mines = data.getAttribute("num_mines");
+    var JSONObj = {'num_mines' : num_mines};
     var targeturl = '/api/newgame.json'
     ajax_post(JSONObj, targeturl, newgame_handler);
 }
 
-function play_cell(attrs) {
-    var row = attrs.getAttribute("row");
-    var col = attrs.getAttribute("col");
+function play_cell(data) {
+    var row = data.getAttribute("row");
+    var col = data.getAttribute("col");
     var JSONObj = {'row':row, 'col':col};
     var targeturl = '/api/play.json'
     ajax_post(JSONObj, targeturl, updategame_handler);
 }
 
-function flag_cell(attrs) {
-    var row = attrs.getAttribute("row");
-    var col = attrs.getAttribute("col");
+function flag_cell(data) {
+    var row = data.getAttribute("row");
+    var col = data.getAttribute("col");
     var JSONObj = {'row':row, 'col':col, 'flag':1};
     var targeturl = '/api/flag.json'
     ajax_post(JSONObj, targeturl, flaggame_handler);
