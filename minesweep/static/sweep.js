@@ -4,36 +4,47 @@ $(document).ready(function(){
     }
 });
 
-function newgame_handler(data) {
-    console.log("newgame_handler:", data);
-    var minefield = $(".field");
+function redraw(minefield, board_list) {
     minefield.empty();
-    console.log(data["new_minefield"]);
-    for (var row = 0; row < data["new_minefield"].length; row++) {
+    for (var row = 0; row < board_list.length; row++) {
         minefield.append("<tr>");
         var cols = "";
-        for(var col = 0; col < data["new_minefield"][row].length; col++) {
+        for(var col = 0; col < board_list[row].length; col++) {
             cols += "<td class=\"cell\" \onclick=\"play_cell(this)\" " +
                     "row=\"" + row + "\" " +
                     "col=\"" + col + "\" " +
                     "oncontextmenu=\"flag_cell(this)\">" +
-                    data["new_minefield"][row][col] +
+                    board_list[row][col] +
                     "</td>";
         };
         minefield.append('<tr>' + cols + '</tr>');
     };
+};
+
+function newgame_handler(data) {
+    console.log("newgame_handler:", data);
+    var minefield = $(".field");
+    var board_list = data["new_minefield"];
+    redraw(minefield, board_list);
 }
 
 function updategame_handler(data) {
     console.log("updategame_handler:", data);
+    var minefield = $(".field");
+    var board_list = data["played_minefield"];
+    redraw(minefield, board_list);
 }
 
 function flaggame_handler(data) {
     console.log("flaggame_handler:", data);
+    var minefield = $(".field");
+    var board_list = data["played_minefield"];
+    redraw(minefield, board_list);
 }
 
 function new_game() {
-    var JSONObj = {};
+    // TODO: dynamically have user choose difficulty?
+    var JSONObj = {'board_size' : 10, 'num_mines' : 10};
     var targeturl = '/api/newgame.json'
     ajax_post(JSONObj, targeturl, newgame_handler);
 }

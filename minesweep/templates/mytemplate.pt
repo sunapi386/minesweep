@@ -27,6 +27,12 @@
 
     <div class="minesweep-main">
     <h1 align="center">Welcome to Minesweeper!</h1>
+<!--
+    <form>
+      Size:<input type="number" name="board_size">
+      Number of mines:<input type="number" name="num_mines">
+    </form>
+ -->
     <div id="start_button" onclick="new_game()">
       New MineSweeper Game
     </div>

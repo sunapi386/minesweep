@@ -7,6 +7,30 @@ class Cell(object):
         self.is_visible = is_visible
         self.is_flagged = is_flagged
 
+    def __str__(self):
+        if cell.is_visible:
+            if cell.is_mine:
+                return "M"
+            else:
+                return "?"
+        elif cell.is_flagged:
+            return "F"
+        else:
+            return "X"
+
+    def fromchar(char):
+        self.is_mine = False
+        self.is_visible = False
+        self.is_flagged = False
+        if char == 'M':
+            self.is_mine = True
+            self.is_visible = True
+        elif char == '?':
+            self.is_visible = True
+        elif char == 'F':
+            self.is_flagged = True
+
+
     def show(self):
         self.is_visible = True
 
@@ -112,9 +136,11 @@ def create_board(size, mines):
         board.place_mine(row_id, col_id)
     return board
 
-def load_board(string_representation):
-    board = Board(tuple(string_representation))
-    return board
+def load_board(board_lst):
+    if type(board_lst) == list:
+        board = Board(tuple([tuple(b) for b in board_lst]))
+        return board
+    print "load_board: bad board representation type", str(type(board_lst))
 
 def get_move(board):
     INSTRUCTIONS = ("First, enter the column, followed by the row. To add or "
@@ -132,6 +158,17 @@ def get_move(board):
             move = input(INSTRUCTIONS)
 
     return (int(move[1]), int(move[0]), move[-1] == "f")
+
+def make_move(board, move):
+    """ Move representation: column + row + <f>. To add or "
+        "remove a flag, add \"f\" after the row (for example, 64f "
+        "would place a flag on the 6th column, 4th row). """
+    if 2 <= len(move) and len(move) <= 3:
+        (row_id, col_id, is_flag) = (int(move[1]), int(move[0]), move[-1] == "f")
+        if is_flag:
+            board.flag(row_id, col_id)
+        else:
+            board.show(row_id, col_id)
 
 def is_valid(move_input, board):
     if move_input == "H" or (len(move_input) not in (2, 3) or
